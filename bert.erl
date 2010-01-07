@@ -67,8 +67,8 @@
 %%     bert:decode(<<131,108,0,0,0,7,97,42,99,51,46,49,52,...>>).
 %%     % -> [42, 3.14, banana, {xy, 5, 10}, <<"robot">>, true, false]
 
--module(bert). %% Version 1.0.0
-
+-module(bert).
+-version('1.0.0').
 -author("Tom Preston-Werner").
 
 -export([encode/1, decode/1]).
@@ -96,8 +96,14 @@ encode_term(Term) ->
     [] -> {bert, nil};
     true -> {bert, true};
     false -> {bert, false};
-    Dict when is_record(Term, dict, 8) -> {bert, dict, dict:to_list(Dict)};
-    List when is_list(Term) -> lists:map((fun encode_term/1), List);
+    Dict when is_record(Term, dict, 8) ->
+      {bert, dict, dict:to_list(Dict)};
+    List when is_list(Term) ->
+      lists:map((fun encode_term/1), List);
+    Tuple when is_tuple(Term) ->
+      TList = tuple_to_list(Tuple),
+      TList2 = lists:map((fun encode_term/1), TList),
+      list_to_tuple(TList2);
     _Else -> Term
   end.
 
