@@ -2,7 +2,7 @@
 %%% MIT License - Copyright (c) 2009 Tom Preston-Werner <tom@mojombo.com>
 
 -module(bert).
--version('1.0.0').
+-version('1.1.0').
 -author("Tom Preston-Werner").
 
 -export([encode/1, decode/1]).
