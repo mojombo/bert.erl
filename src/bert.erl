@@ -56,7 +56,8 @@ decode_term(Term) ->
     {bert, true} -> true;
     {bert, false} -> false;
     {bert, dict, Dict} ->
-      dict:from_list(Dict);
+      L = lists:map(fun decode_term/1, Dict),
+      dict:from_list(L);
     {bert, Other} ->
       {bert, Other};
     List when is_list(Term) ->

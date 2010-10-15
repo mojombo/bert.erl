@@ -33,3 +33,12 @@ decode_dict_test() ->
   Term = dict:store(foo, true, dict:new()),
   Term = decode(Bert).
 
+decode_dict_nesting_test() ->
+  Bert = term_to_binary({ bert, dict,
+                          dict:to_list(dict:store(a,
+                                                  { bert, dict,
+                                                    dict:to_list(dict:store(b, "b", dict:new()))
+                                                  },
+                                                  dict:new())) }),
+  Term = dict:store(a, dict:store(b, "b", dict:new()), dict:new()),
+  Term = decode(Bert).
