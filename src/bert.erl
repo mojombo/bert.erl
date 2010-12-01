@@ -7,10 +7,6 @@
 
 -export([encode/1, decode/1]).
 
--ifdef(TEST).
--include("test/bert_test.erl").
--endif.
-
 %%---------------------------------------------------------------------------
 %% Public API
 

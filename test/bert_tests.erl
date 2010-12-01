@@ -1,4 +1,6 @@
+-module(bert_tests).
 -include_lib("eunit/include/eunit.hrl").
+-import(bert, [encode/1, decode/1]).
 
 %% encode
 
