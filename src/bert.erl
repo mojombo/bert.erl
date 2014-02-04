@@ -34,7 +34,7 @@ encode_term(Term) ->
     [] -> {bert, nil};
     true -> {bert, true};
     false -> {bert, false};
-    Dict when is_record(Term, dict, 8) ->
+    Dict when is_tuple(Term) andalso element(1, Term) =:= dict ->
       {bert, dict, dict:to_list(Dict)};
     List when is_list(Term) ->
       lists:map((fun encode_term/1), List);
