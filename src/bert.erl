@@ -35,7 +35,7 @@ encode_term(Term) ->
     true -> {bert, true};
     false -> {bert, false};
     Dict when is_record(Term, dict, 8) ->
-      {bert, dict, dict:to_list(Dict)};
+      {bert, dict, encode_term(dict:to_list(Dict))};
     List when is_list(Term) ->
       lists:map((fun encode_term/1), List);
     Tuple when is_tuple(Term) ->
@@ -56,7 +56,7 @@ decode_term(Term) ->
     {bert, true} -> true;
     {bert, false} -> false;
     {bert, dict, Dict} ->
-      dict:from_list(Dict);
+      dict:from_list(decode_term(Dict));
     {bert, Other} ->
       {bert, Other};
     List when is_list(Term) ->
